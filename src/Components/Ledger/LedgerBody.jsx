@@ -1,17 +1,17 @@
 import React from "react";
 
 const dummyStudents = {
-  usman: { name: "Muhammad Usman", age: 26, imageSrc: "/user.png" },
-  sana: { name: "Sana Khan", age: 24, imageSrc: "/user.png" },
-  ali: { name: "Ali Raza", age: 25, imageSrc: "/user.png" },
-  fatima: { name: "Fatima Zahra", age: 23, imageSrc: "/user.png" },
-  ahmed: { name: "Ahmed Hassan", age: 27, imageSrc: "/user.png" },
-  hira: { name: "Hira Malik", age: 22, imageSrc: "/user.png" },
-  zain: { name: "Zain Ali", age: 28, imageSrc: "/user.png" },
-  noor: { name: "Noor Fatima", age: 24, imageSrc: "/user.png" },
-  bilal: { name: "Bilal Aslam", age: 26, imageSrc: "/user.png" },
-  ayesha: { name: "Ayesha Siddiqui", age: 23, imageSrc: "/user.png" },
-  arsalan: { name: "Arsalan Javed", age: 25, imageSrc: "/user.png" },
+  usman: { name: "Muhammad Usman", age: 26, imageSrc: "/user.jpg" },
+  sana: { name: "Sana Khan", age: 24, imageSrc: "/user.jpg" },
+  ali: { name: "Ali Raza", age: 25, imageSrc: "/user.jpg" },
+  fatima: { name: "Fatima Zahra", age: 23, imageSrc: "/user.jpg" },
+  ahmed: { name: "Ahmed Hassan", age: 27, imageSrc: "/user.jpg" },
+  hira: { name: "Hira Malik", age: 22, imageSrc: "/user.jpg" },
+  zain: { name: "Zain Ali", age: 28, imageSrc: "/user.jpg" },
+  noor: { name: "Noor Fatima", age: 24, imageSrc: "/user.jpg" },
+  bilal: { name: "Bilal Aslam", age: 26, imageSrc: "/user.jpg" },
+  ayesha: { name: "Ayesha Siddiqui", age: 23, imageSrc: "/user.jpg" },
+  arsalan: { name: "Arsalan Javed", age: 25, imageSrc: "/user.jpg" },
 };
 
 export default function LedgerBody() {
@@ -19,11 +19,13 @@ export default function LedgerBody() {
     <ul className="divide-y divide-gray-300">
       {Object.entries(dummyStudents).map(([stuId, stuObj]) => (
         <li key={stuId} className="px-4 py-2.5 flex items-center">
-          <img
-            src={stuObj.imageSrc}
-            alt={`${stuObj.name} Profile Picture`}
-            width={34}
-          />
+          <div className="w-10 h-10 bg-green-300 overflow-hidden rounded-full">
+            <img
+              src={stuObj.imageSrc}
+              alt={`${stuObj.name} Profile Picture`}
+              className="object-cover"
+            />
+          </div>
           <p className="ml-3">
             {stuObj.name} &middot;
             <span className="italic text-sm ml-1">{stuObj.age} years</span>
