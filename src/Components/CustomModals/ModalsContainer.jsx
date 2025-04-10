@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
 import ModalContext from "../../store/ModalContext";
 import CreateStudentModal from "./CreateStudentModal";
+import EditStudentModal from "./EditStudentModal";
 
 export default function ModalsContainer() {
   const modalCtx = useContext(ModalContext);
-  return <>{modalCtx.createStudentModal && <CreateStudentModal />}</>;
+  return (
+    <>
+      {modalCtx.createStudentModal && <CreateStudentModal />}
+      {modalCtx.editStudentModal && <EditStudentModal />}
+    </>
+  );
 }
