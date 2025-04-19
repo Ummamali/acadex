@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import ModalContext from "../../store/ModalContext";
+import ControllerContext from "../../store/ControllerContext";
 
 const dummyStudents = {
   usman: { name: "Muhammad Usman", age: 26, imageSrc: "/user.jpg" },
@@ -17,6 +18,7 @@ const dummyStudents = {
 
 export default function LedgerBody() {
   const modalCtx = useContext(ModalContext);
+  const ctrlCtx = useContext(ControllerContext);
   return (
     <ul className="divide-y divide-gray-300">
       {Object.entries(dummyStudents).map(([stuId, stuObj]) => (
@@ -35,11 +37,16 @@ export default function LedgerBody() {
           <div className="ml-auto space-x-4 text-sm">
             <button
               className="text-yellow-600"
-              onClick={() => modalCtx.openEditStudentModal()}
+              onClick={() => {
+                ctrlCtx.startEditing(stuId);
+              }}
             >
               <i className="fa-solid fa-pen"></i>
             </button>
-            <button className="text-red-600">
+            <button
+              className="text-red-600"
+              onClick={() => modalCtx.openDeleteStudentModal()}
+            >
               <i className="fa-solid fa-trash"></i>
             </button>
           </div>

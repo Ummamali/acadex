@@ -7,6 +7,9 @@ const ModalContext = createContext({
   editStudentModal: false,
   openEditStudentModal: () => null,
   closeEditStudentModal: () => null,
+  deleteStudentModal: false,
+  openDeleteStudentModal: () => null,
+  closeDeleteStudentModal: () => null,
 });
 
 export default ModalContext;

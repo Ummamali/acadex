@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
 import Modal from "../utils/Modal/Modal";
 import ModalContext from "../../store/ModalContext";
+import ControllerContext from "../../store/ControllerContext";
 
 export default function EditStudentModal() {
-  const modalCtx = useContext(ModalContext);
-  return <Modal close={modalCtx.closeEditStudentModal}>EditStudentModal</Modal>;
+  const ctrlCtx = useContext(ControllerContext);
+  return (
+    <Modal close={ctrlCtx.endEditing}>
+      EditStudentModal {ctrlCtx.editStudentId}
+    </Modal>
+  );
 }
