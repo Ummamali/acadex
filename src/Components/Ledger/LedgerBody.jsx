@@ -17,7 +17,6 @@ const dummyStudents = {
 };
 
 export default function LedgerBody() {
-  const modalCtx = useContext(ModalContext);
   const ctrlCtx = useContext(ControllerContext);
   return (
     <ul className="divide-y divide-gray-300">
