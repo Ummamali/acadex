@@ -22,7 +22,10 @@ export default function LedgerBody() {
   return (
     <ul className="divide-y divide-gray-300">
       {Object.entries(dummyStudents).map(([stuId, stuObj]) => (
-        <li key={stuId} className="px-4 py-2.5 flex items-center">
+        <li
+          key={stuId}
+          className="px-4 py-2.5 flex items-center hover:bg-gray-100/80"
+        >
           <div className="w-10 h-10 bg-green-300 overflow-hidden rounded-full">
             <img
               src={stuObj.imageSrc}
@@ -45,7 +48,7 @@ export default function LedgerBody() {
             </button>
             <button
               className="text-red-600"
-              onClick={() => modalCtx.openDeleteStudentModal()}
+              onClick={() => ctrlCtx.startDeleting(stuId)}
             >
               <i className="fa-solid fa-trash"></i>
             </button>
