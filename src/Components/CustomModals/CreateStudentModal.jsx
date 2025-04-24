@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import Modal from "../utils/Modal/Modal";
 import ModalContext from "../../store/ModalContext";
 import RefFormGroup from "../utils/RefFormGroup";
+import { postStudent } from "../../backend/connect";
 
 export default function CreateStudentModal() {
   const modalCtx = useContext(ModalContext);
@@ -9,6 +10,18 @@ export default function CreateStudentModal() {
   const ageRef = useRef(null);
   const profileRef = useRef(null);
   const [profileUrl, setProfileUrl] = useState(null);
+
+  function submitForm(e) {
+    e.preventDefault();
+
+    postStudent({
+      studentObj: {
+        name: nameRef.current.value,
+        age: parseInt(ageRef.current.value),
+      },
+      studentImg: profileRef.current.files[0],
+    });
+  }
 
   return (
     <Modal close={modalCtx.closeCreateStudentModal}>
@@ -18,7 +31,7 @@ export default function CreateStudentModal() {
           Provide student information to complete registration.
         </p>
       </div>
-      <form action="" className="flex space-x-6 ">
+      <form action="" className="flex space-x-6" onSubmit={submitForm}>
         <div className="flex-1 space-y-3">
           <RefFormGroup
             ref={nameRef}

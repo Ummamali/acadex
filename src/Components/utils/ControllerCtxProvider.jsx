@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ControllerContext from "../../store/ControllerContext";
 import ModalContext from "../../store/ModalContext";
 import useRequest from "../../hooks/useRequest";
+import { getUrl } from "../../backend/backendConfig";
 
 export default function ControllerCtxProvider({ children }) {
   const [editStudentId, setEditStudentId] = useState(null);
@@ -12,7 +13,7 @@ export default function ControllerCtxProvider({ children }) {
     loadStatus: studentsLoadStatus,
     resObj: studentsResObj,
     sendRequest,
-  } = useRequest(() => fetch("http://localhost:5500/students"), []);
+  } = useRequest(() => fetch(getUrl("students")), []);
 
   const [students, setStudents] = useState([]);
 
