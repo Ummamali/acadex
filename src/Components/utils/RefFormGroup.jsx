@@ -8,7 +8,7 @@ export default function RefFormGroup({
   errorMessage,
 }) {
   return (
-    <div className="ref-form-group error">
+    <div className="ref-form-group">
       <label htmlFor={id}>{label}</label>
       <input id={id} ref={ref} {...inputProps} />
       <p className="err">{errorMessage}</p>
