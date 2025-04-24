@@ -1,26 +1,14 @@
 import React, { useContext } from "react";
-import ModalContext from "../../store/ModalContext";
 import ControllerContext from "../../store/ControllerContext";
-
-const dummyStudents = {
-  usman: { name: "Muhammad Usman", age: 26, imageSrc: "/user.jpg" },
-  sana: { name: "Sana Khan", age: 24, imageSrc: "/user.jpg" },
-  ali: { name: "Ali Raza", age: 25, imageSrc: "/user.jpg" },
-  fatima: { name: "Fatima Zahra", age: 23, imageSrc: "/user.jpg" },
-  ahmed: { name: "Ahmed Hassan", age: 27, imageSrc: "/user.jpg" },
-  hira: { name: "Hira Malik", age: 22, imageSrc: "/user.jpg" },
-  zain: { name: "Zain Ali", age: 28, imageSrc: "/user.jpg" },
-  noor: { name: "Noor Fatima", age: 24, imageSrc: "/user.jpg" },
-  bilal: { name: "Bilal Aslam", age: 26, imageSrc: "/user.jpg" },
-  ayesha: { name: "Ayesha Siddiqui", age: 23, imageSrc: "/user.jpg" },
-  arsalan: { name: "Arsalan Javed", age: 25, imageSrc: "/user.jpg" },
-};
 
 export default function LedgerBody() {
   const ctrlCtx = useContext(ControllerContext);
   return (
     <ul className="divide-y divide-gray-300">
-      {Object.entries(dummyStudents).map(([stuId, stuObj]) => (
+      {ctrlCtx.studentsLoadStatus === 1 && (
+        <p className="text-center my-6">Loading...</p>
+      )}
+      {Object.entries(ctrlCtx.students).map(([stuId, stuObj]) => (
         <li
           key={stuId}
           className="px-4 py-2.5 flex items-center hover:bg-gray-100/80"

@@ -8,6 +8,9 @@ const ControllerContext = createContext({
   endEditing: () => null,
   startDeleting: (studentId) => null,
   cancelDeleting: () => null,
+  students: [],
+  studentsLoadStatus: 0,
+  setStudents: () => null,
 });
 
 export default ControllerContext;
