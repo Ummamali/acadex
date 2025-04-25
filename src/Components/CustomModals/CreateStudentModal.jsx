@@ -5,6 +5,22 @@ import RefFormGroup from "../utils/RefFormGroup";
 import { postStudent } from "../../backend/connect";
 import useRequest from "../../hooks/useRequest";
 import ControllerContext from "../../store/ControllerContext";
+import useValidator, { syncValidateAll } from "../../hooks/useValidator";
+import ValidatedRefFG from "../utils/ValidatedRefFG";
+
+const identityList = {
+  studentName: "Invalid student name given...",
+  studentAge: "Invalid student age, must be between 1 and 120...",
+};
+
+const validatorPredicates = {
+  studentName: (name) => ({
+    isValid: name.length > 4,
+  }),
+  studentAge: (age) => ({
+    isValid: age > 0 && age < 120,
+  }),
+};
 
 export default function CreateStudentModal() {
   const ctrlCtx = useContext(ControllerContext);
@@ -14,19 +30,30 @@ export default function CreateStudentModal() {
   const profileRef = useRef(null);
   const [profileUrl, setProfileUrl] = useState(null);
   const { loadStatus, sendRequest } = useRequest(postStudent);
+  const { validityStatuses, validate, dispatchValidity } = useValidator(
+    identityList,
+    validatorPredicates
+  );
 
   function submitForm(e) {
     e.preventDefault();
 
-    sendRequest({
-      studentObj: {
-        name: nameRef.current.value,
-        age: parseInt(ageRef.current.value),
-      },
-      studentImg: profileRef.current.files[0],
-    }).then((resObj) => {
-      ctrlCtx.appendStudent(resObj.createdId, resObj.created);
-    });
+    const currentValues = {
+      studentName: nameRef.current.value,
+      studentAge: parseInt(ageRef.current.value),
+    };
+
+    if (syncValidateAll(currentValues, validate)) {
+      sendRequest({
+        studentObj: {
+          name: currentValues.studentName,
+          age: currentValues.studentAge,
+        },
+        studentImg: profileRef.current.files[0],
+      }).then((resObj) => {
+        ctrlCtx.appendStudent(resObj.createdId, resObj.created);
+      });
+    }
   }
 
   return (
@@ -39,18 +66,27 @@ export default function CreateStudentModal() {
       </div>
       <form action="" className="flex space-x-6" onSubmit={submitForm}>
         <div className="flex-1 space-y-3">
-          <RefFormGroup
+          <ValidatedRefFG
             ref={nameRef}
-            id="studentName"
+            identity="studentName"
             label="Name"
-            errorMessage={"Bad bad user...."}
-            inputProps={{ placeholder: "Enter student name here..." }}
+            validityStatuses={validityStatuses}
+            dispatchValidity={dispatchValidity}
+            inputProps={{
+              placeholder: "Enter student name here...",
+              onBlur: (e) => validate("studentName", e.target.value),
+            }}
           />
-          <RefFormGroup
+          <ValidatedRefFG
             ref={ageRef}
-            id="studentAge"
+            identity="studentAge"
             label="Age"
-            inputProps={{ placeholder: "Enter student age here...." }}
+            validityStatuses={validityStatuses}
+            dispatchValidity={dispatchValidity}
+            inputProps={{
+              placeholder: "Enter student age here....",
+              onBlur: (e) => validate("studentAge", e.target.value),
+            }}
           />
           <div className="flex space-x-3 items-center">
             <button

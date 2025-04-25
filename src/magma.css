@@ -10,19 +10,20 @@
   @apply block mb-1 text-gray-800;
 }
 
-.ref-form-group .err {
+/* ----- For Vaidated Form Group */
+.validated-ref-fg .err-msg {
   @apply hidden text-red-600;
 }
 
 /* Error cases */
 
-.ref-form-group.error input {
+.validated-ref-fg.invalid input {
   @apply border-red-500 bg-red-100/40;
 }
-.ref-form-group.error input::placeholder {
+.validated-ref-fg.invalid input::placeholder {
   @apply text-red-600/70;
 }
 
-.ref-form-group.error .err {
+.validated-ref-fg.invalid .err-msg {
   @apply block;
 }
