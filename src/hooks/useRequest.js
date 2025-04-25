@@ -5,7 +5,7 @@ useRequest Hook
   returns: { loadStatus: 0|1|2|3, resObj (PARSED body of good response), sendRequest, resetStatus, startLoading }
   Signatures:
     reqData: {status: 0|1|2|3|4, resObj: Object | Error}
-    sendRequest: function(data, modifier) => Promise
+    sendRequest: function(data, modifier) => Promise (must resolve to a response object, NOT resObj)
     resetStatus: void function()   
     startLoading: void function()
 
@@ -30,7 +30,7 @@ export default function useRequest(
       setLoadStatus(1);
       fetcher(data)
         .then((res) => {
-          // the backend must return an internal status of 200 to indicate success. Any other status will be considered as bad.
+          // the backend must return an internal status of 200-299 to indicate success. Any other status will be considered as bad.
           if (!res.ok) {
             throw new Error(
               "Bad Response: Some error occured during sendRequest!!!"

@@ -7,6 +7,8 @@
 /* Gobal styles below */
 
 button:hover {
-  cursor: pointer;
   filter: brightness(94%);
+}
+button:not(:disabled) {
+  cursor: pointer;
 }

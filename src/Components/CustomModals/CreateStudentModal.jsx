@@ -3,23 +3,29 @@ import Modal from "../utils/Modal/Modal";
 import ModalContext from "../../store/ModalContext";
 import RefFormGroup from "../utils/RefFormGroup";
 import { postStudent } from "../../backend/connect";
+import useRequest from "../../hooks/useRequest";
+import ControllerContext from "../../store/ControllerContext";
 
 export default function CreateStudentModal() {
+  const ctrlCtx = useContext(ControllerContext);
   const modalCtx = useContext(ModalContext);
   const nameRef = useRef(null);
   const ageRef = useRef(null);
   const profileRef = useRef(null);
   const [profileUrl, setProfileUrl] = useState(null);
+  const { loadStatus, sendRequest } = useRequest(postStudent);
 
   function submitForm(e) {
     e.preventDefault();
 
-    postStudent({
+    sendRequest({
       studentObj: {
         name: nameRef.current.value,
         age: parseInt(ageRef.current.value),
       },
       studentImg: profileRef.current.files[0],
+    }).then((resObj) => {
+      ctrlCtx.appendStudent(resObj.createdId, resObj.created);
     });
   }
 
@@ -46,12 +52,32 @@ export default function CreateStudentModal() {
             label="Age"
             inputProps={{ placeholder: "Enter student age here...." }}
           />
-          <button
-            type="submit"
-            className="block text-white py-2.5 px-6 rounded-sm bg-accent"
-          >
-            Register Student
-          </button>
+          <div className="flex space-x-3 items-center">
+            <button
+              type="submit"
+              className="block text-white py-2.5 px-6 rounded-sm bg-accent disabled:opacity-25 disabled:hover:cursor-not-allowed"
+              disabled={loadStatus === 1}
+            >
+              Register Student
+            </button>
+            {loadStatus === 1 ? (
+              <p className="textx-gray-600 italic">
+                <i className="fa-solid fa-spinner animate-spin mr-2"></i>
+                Registering...
+              </p>
+            ) : loadStatus === 2 ? (
+              <p className="text-green-600">
+                <i className="fa-solid fa-circle-check"></i> Student registered
+                successfully
+              </p>
+            ) : loadStatus === 3 ? (
+              <p className="text-red-600">
+                {" "}
+                <i className="fa-solid fa-circle-exclamation"></i> Unable to
+                register student
+              </p>
+            ) : null}
+          </div>
         </div>
         <div
           className="w-[120px] h-[120px] rounded-full text-center text-2xl text-black/70 bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300/80 border border-gray-500"

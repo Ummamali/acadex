@@ -31,6 +31,11 @@ export default function ControllerCtxProvider({ children }) {
     }
   }, [studentsLoadStatus, studentsResObj]);
 
+  // Creation function
+  function appendStudent(newStudentId, newStudentObj) {
+    setStudents((prev) => ({ ...prev, [newStudentId]: newStudentObj }));
+  }
+
   // start editing functionality
   function startEditing(studentId) {
     setEditStudentId(studentId);
@@ -62,6 +67,7 @@ export default function ControllerCtxProvider({ children }) {
         cancelDeleting,
         students,
         studentsLoadStatus,
+        appendStudent,
       }}
     >
       {children}

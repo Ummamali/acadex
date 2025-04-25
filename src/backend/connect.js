@@ -10,7 +10,10 @@ export async function postStudent(data) {
     method: "POST",
     body: formData,
   });
-  const resObj = await res.json();
 
-  return resObj;
+  if (res.status === 201) {
+    return res;
+  } else {
+    throw new Error("Backend didn't return a 201");
+  }
 }

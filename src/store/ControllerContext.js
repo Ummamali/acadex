@@ -11,6 +11,7 @@ const ControllerContext = createContext({
   students: [],
   studentsLoadStatus: 0,
   setStudents: () => null,
+  appendStudent: () => null,
 });
 
 export default ControllerContext;
