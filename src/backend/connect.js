@@ -1,4 +1,4 @@
-import { postURL } from "./backendConfig";
+import { deleteURL, postURL } from "./backendConfig";
 
 export async function postStudent(data) {
   const formData = new FormData();
@@ -16,4 +16,12 @@ export async function postStudent(data) {
   } else {
     throw new Error("Backend didn't return a 201");
   }
+}
+
+export async function requestDeleteStudent(studentId) {
+  const res = await fetch(deleteURL("students", studentId), {
+    method: "DELETE",
+  });
+
+  return res;
 }

@@ -7,6 +7,9 @@ import { getUrl } from "../../backend/backendConfig";
 export default function ControllerCtxProvider({ children }) {
   const [editStudentId, setEditStudentId] = useState(null);
   const [deleteStudentId, setDeleteStudentId] = useState(null);
+  const [students, setStudents] = useState([]);
+  const [alert, setAlert] = useState("Hello World");
+  const modalCtx = useContext(ModalContext);
 
   // For controlling students data
   const {
@@ -14,10 +17,6 @@ export default function ControllerCtxProvider({ children }) {
     resObj: studentsResObj,
     sendRequest,
   } = useRequest(() => fetch(getUrl("students")), []);
-
-  const [students, setStudents] = useState([]);
-
-  const modalCtx = useContext(ModalContext);
 
   useEffect(() => {
     console.log("sending request");
@@ -34,6 +33,14 @@ export default function ControllerCtxProvider({ children }) {
   // Creation function
   function appendStudent(newStudentId, newStudentObj) {
     setStudents((prev) => ({ ...prev, [newStudentId]: newStudentObj }));
+  }
+
+  function removeStudent(studentId) {
+    setStudents((prev) => {
+      const studentsCp = { ...prev };
+      delete studentsCp[studentId];
+      return studentsCp;
+    });
   }
 
   // start editing functionality
@@ -56,6 +63,19 @@ export default function ControllerCtxProvider({ children }) {
     modalCtx.closeDeleteStudentModal();
     setDeleteStudentId(null);
   }
+
+  // Alerts and management
+  function raiseAlert(alertMessage) {
+    setAlert(alertMessage);
+    setTimeout(() => {
+      setAlert(null);
+    }, 4000);
+  }
+
+  function removeAlert() {
+    setAlert(null);
+  }
+
   return (
     <ControllerContext.Provider
       value={{
@@ -68,6 +88,10 @@ export default function ControllerCtxProvider({ children }) {
         students,
         studentsLoadStatus,
         appendStudent,
+        removeStudent,
+        alert,
+        raiseAlert,
+        removeAlert,
       }}
     >
       {children}

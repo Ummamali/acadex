@@ -6,6 +6,7 @@ import Modal from "./Components/utils/Modal/Modal";
 import ModalCtxProvider from "./Components/CustomModals/ModalCtxProvider";
 import ModalsContainer from "./Components/CustomModals/ModalsContainer";
 import ControllerCtxProvider from "./Components/utils/ControllerCtxProvider";
+import TopAlert from "./Components/utils/TopAlert";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,6 +15,7 @@ function App() {
     <ModalCtxProvider>
       <ControllerCtxProvider>
         <ModalsContainer />
+        <TopAlert />
         <Header />
         <Ledger />
       </ControllerCtxProvider>

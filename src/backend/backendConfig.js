@@ -14,3 +14,7 @@ export function getUrl(resourceName) {
 export function postURL(resourceName) {
   return `${backendURL}:${backendPort}${REST_Endpoints[resourceName]}`;
 }
+
+export function deleteURL(resourceName, resourceId) {
+  return `${backendURL}:${backendPort}${REST_Endpoints[resourceName]}/${resourceId}`;
+}

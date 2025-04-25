@@ -52,6 +52,8 @@ export default function CreateStudentModal() {
         studentImg: profileRef.current.files[0],
       }).then((resObj) => {
         ctrlCtx.appendStudent(resObj.createdId, resObj.created);
+        modalCtx.closeCreateStudentModal();
+        ctrlCtx.raiseAlert("Student has been created successfully.");
       });
     }
   }
