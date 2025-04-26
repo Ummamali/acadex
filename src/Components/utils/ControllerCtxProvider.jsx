@@ -8,7 +8,7 @@ export default function ControllerCtxProvider({ children }) {
   const [editStudentId, setEditStudentId] = useState(null);
   const [deleteStudentId, setDeleteStudentId] = useState(null);
   const [students, setStudents] = useState([]);
-  const [alert, setAlert] = useState("Hello World");
+  const [alert, setAlert] = useState(null);
   const modalCtx = useContext(ModalContext);
 
   // For controlling students data
