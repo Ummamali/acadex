@@ -24,23 +24,17 @@ const validatorPredicates = {
 export default function EditStudentModal() {
   const ctrlCtx = useContext(ControllerContext);
   const modalCtx = useContext(ModalContext);
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+  const studentObj = ctrlCtx.students[ctrlCtx.editStudentId];
+  // Form fields values
+  const [name, setName] = useState(studentObj.name);
+  const [age, setAge] = useState(studentObj.age);
+  const [profileUrl, setProfileUrl] = useState(studentObj.imageSrc);
   const profileRef = useRef(null);
-  const [profileUrl, setProfileUrl] = useState(null);
   // const { loadStatus, sendRequest } = useRequest(patchStudent);
   const { validityStatuses, validate, dispatchValidity } = useValidator(
     identityList,
     validatorPredicates
   );
-
-  const studentObj = ctrlCtx.students[ctrlCtx.editStudentId];
-
-  // load form data upon first load
-  useEffect(() => {
-    setName(studentObj.name);
-    setAge(studentObj.age);
-  }, [studentObj]);
 
   function submitForm(e) {
     e.preventDefault();
@@ -81,24 +75,23 @@ export default function EditStudentModal() {
             label="Name"
             value={name}
             setValue={setName}
-            isEditField={true}
             validityStatuses={validityStatuses}
             dispatchValidity={dispatchValidity}
+            validate={validate}
             inputProps={{
               placeholder: "Enter student name here...",
-              onBlur: (e) => validate("studentName", e.target.value),
             }}
           />
           <ValidatedEditableFG
             identity="studentAge"
             label="Age"
-            validityStatuses={validityStatuses}
-            dispatchValidity={dispatchValidity}
             value={age}
             setValue={setAge}
+            validityStatuses={validityStatuses}
+            dispatchValidity={dispatchValidity}
+            validate={validate}
             inputProps={{
               placeholder: "Enter student age here....",
-              onBlur: (e) => validate("studentAge", e.target.value),
               type: "number",
             }}
           />
@@ -130,7 +123,7 @@ export default function EditStudentModal() {
           </div>
         </div>
         <div
-          className="w-[120px] h-[120px] rounded-full text-center text-2xl text-black/70 bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300/80 border border-gray-500"
+          className="w-[120px] h-[120px] rounded-full text-center text-2xl text-black/70 bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-300/80 border border-gray-300"
           style={
             profileUrl !== null
               ? {

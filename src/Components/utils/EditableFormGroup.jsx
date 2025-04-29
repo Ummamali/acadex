@@ -6,7 +6,6 @@ export default function EditableFormGroup({
   value,
   setValue,
   inputProps,
-  isEditField = false,
 }) {
   /*
   This state form group is better suited for editable fields (for fields in an EDIT form). If you don't want edit locking feature (mostly in simple forms), user Ref-FormGroup
@@ -37,12 +36,13 @@ export default function EditableFormGroup({
             <div className="ml-auto space-x-2">
               <button
                 className="text-green-700 hover:bg-green-100 w-7 h-7 rounded-sm"
+                // disabled={isInvalid}
                 onClick={() => {
                   setValue(provisionalValue);
                   setIsLocked(true);
                 }}
               >
-                <i className="fa-solid fa-check "></i>
+                <i className="fa-solid fa-check"></i>
               </button>
               <button
                 className="text-red-600 hover:bg-red-100 w-7 h-7 rounded-sm"
