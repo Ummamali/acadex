@@ -1,12 +1,3 @@
-# React + Vite
+# Acadex — A Clean and Intuitive CRUD Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Acadex is a web-based CRUD application designed to help you manage student records efficiently. It features a clean and intuitive user interface for performing essential operations like creating, reading, updating, and deleting student data. The frontend is seamlessly integrated with a backend server built using Express.js on Node.js, ensuring fast and responsive interactions. Unlike traditional database-driven apps, Acadex uses a lightweight flat file database to store student information, making it ideal for small projects, demos, or educational purposes. Whether you're learning full-stack development or need a quick solution for managing student data, Acadex offers a practical, minimalistic approach.
