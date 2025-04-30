@@ -12,6 +12,7 @@ const ControllerContext = createContext({
   studentsLoadStatus: 0,
   setStudents: () => null,
   appendStudent: () => null,
+  updateStudent: () => null,
   removeStudent: () => null,
   alert: null,
   raiseAlert: () => null,

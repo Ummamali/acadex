@@ -18,3 +18,7 @@ export function postURL(resourceName) {
 export function deleteURL(resourceName, resourceId) {
   return `${backendURL}:${backendPort}${REST_Endpoints[resourceName]}/${resourceId}`;
 }
+
+export function patchURL(resourceName, resourceId) {
+  return `${backendURL}:${backendPort}${REST_Endpoints[resourceName]}/${resourceId}`;
+}

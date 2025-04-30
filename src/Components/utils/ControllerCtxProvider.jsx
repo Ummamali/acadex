@@ -35,6 +35,14 @@ export default function ControllerCtxProvider({ children }) {
     setStudents((prev) => ({ ...prev, [newStudentId]: newStudentObj }));
   }
 
+  function updateStudent(studentId, newFields) {
+    setStudents((prev) => {
+      const studentsCp = { ...prev };
+      studentsCp[studentId] = { ...studentsCp[studentId], ...newFields };
+      return studentsCp;
+    });
+  }
+
   function removeStudent(studentId) {
     setStudents((prev) => {
       const studentsCp = { ...prev };
@@ -89,6 +97,7 @@ export default function ControllerCtxProvider({ children }) {
         studentsLoadStatus,
         appendStudent,
         removeStudent,
+        updateStudent,
         alert,
         raiseAlert,
         removeAlert,

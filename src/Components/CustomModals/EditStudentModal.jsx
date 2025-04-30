@@ -6,6 +6,7 @@ import useRequest from "../../hooks/useRequest";
 import useValidator, { syncValidateAll } from "../../hooks/useValidator";
 import ValidatedRefFG from "../utils/ValidatedRefFG";
 import ValidatedEditableFG from "../utils/ValidatedEditableFG";
+import { requestPatchStudent } from "../../backend/connect";
 
 const identityList = {
   studentName: "Invalid student name given...",
@@ -30,7 +31,7 @@ export default function EditStudentModal() {
   const [age, setAge] = useState(studentObj.age);
   const [profileUrl, setProfileUrl] = useState(studentObj.imageSrc);
   const profileRef = useRef(null);
-  // const { loadStatus, sendRequest } = useRequest(patchStudent);
+  const { loadStatus, sendRequest } = useRequest(requestPatchStudent);
   const { validityStatuses, validate, dispatchValidity } = useValidator(
     identityList,
     validatorPredicates
@@ -45,18 +46,18 @@ export default function EditStudentModal() {
     };
 
     if (syncValidateAll(currentValues, validate)) {
-      console.log("Form ready to be submitted");
-      // sendRequest({
-      //   studentObj: {
-      //     name: currentValues.studentName,
-      //     age: currentValues.studentAge,
-      //   },
-      //   studentImg: profileRef.current.files[0],
-      // }).then((resObj) => {
-      //   ctrlCtx.appendStudent(resObj.createdId, resObj.created);
-      //   modalCtx.closeCreateStudentModal();
-      //   ctrlCtx.raiseAlert("Student has been created successfully.");
-      // });
+      sendRequest({
+        studentId: ctrlCtx.editStudentId,
+        delta: {
+          name: currentValues.studentName,
+          age: currentValues.studentAge,
+        },
+        newImage: profileRef.current.files[0],
+      }).then((resObj) => {
+        ctrlCtx.updateStudent(ctrlCtx.editStudentId, resObj.modified);
+        ctrlCtx.endEditing();
+        ctrlCtx.raiseAlert("Student has been modified successfully.");
+      });
     }
   }
 
@@ -99,27 +100,10 @@ export default function EditStudentModal() {
             <button
               type="submit"
               className="block text-white py-2.5 px-6 rounded-sm bg-accent disabled:opacity-25 disabled:hover:cursor-not-allowed"
-              // disabled={loadStatus === 1}
+              disabled={loadStatus === 1}
             >
-              Register Student
+              {loadStatus === 1 ? "Loading..." : "Modify Student"}
             </button>
-            {/* {loadStatus === 1 ? (
-              <p className="textx-gray-600 italic">
-                <i className="fa-solid fa-spinner animate-spin mr-2"></i>
-                Registering...
-              </p>
-            ) : loadStatus === 2 ? (
-              <p className="text-green-600">
-                <i className="fa-solid fa-circle-check"></i> Student registered
-                successfully
-              </p>
-            ) : loadStatus === 3 ? (
-              <p className="text-red-600">
-                {" "}
-                <i className="fa-solid fa-circle-exclamation"></i> Unable to
-                register student
-              </p>
-            ) : null} */}
           </div>
         </div>
         <div

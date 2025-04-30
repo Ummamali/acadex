@@ -1,4 +1,4 @@
-import { deleteURL, postURL } from "./backendConfig";
+import { deleteURL, patchURL, postURL } from "./backendConfig";
 
 export async function postStudent(data) {
   const formData = new FormData();
@@ -16,6 +16,19 @@ export async function postStudent(data) {
   } else {
     throw new Error("Backend didn't return a 201");
   }
+}
+
+export async function requestPatchStudent(updateObj) {
+  const formData = new FormData();
+  formData.append("delta", JSON.stringify(updateObj.delta));
+  formData.append("newImage", updateObj.newImage);
+
+  const patchRes = await fetch(patchURL("students", updateObj.studentId), {
+    method: "PATCH",
+    body: formData,
+  });
+
+  return patchRes;
 }
 
 export async function requestDeleteStudent(studentId) {

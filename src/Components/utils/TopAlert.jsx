@@ -10,7 +10,7 @@ export default function TopAlert() {
         {ctrlCtx.alert}
       </p>
       <button onClick={() => ctrlCtx.removeAlert()}>
-        <i class="fa-solid fa-xmark text-lg"></i>
+        <i className="fa-solid fa-xmark text-lg"></i>
       </button>
     </div>
   ) : null;
