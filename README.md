@@ -2,6 +2,8 @@
 
 Acadex is a web-based CRUD application designed to help you manage student records efficiently. It features a clean and intuitive user interface for performing essential operations like creating, reading, updating, and deleting student data. The frontend is seamlessly integrated with a backend server built using Express.js on Node.js, ensuring fast and responsive interactions. Unlike traditional database-driven apps, Acadex uses a lightweight flat file database to store student information, making it ideal for small projects, demos, or educational purposes. Whether you're learning full-stack development or need a quick solution for managing student data, Acadex offers a practical, minimalistic approach.
 
+<img alt="Acadex Priview" src="./preview.jpg"/>
+
 ## Features ✨
 
 - **Create, Read, Update, Delete (CRUD)**  
